@@ -21,7 +21,7 @@
               type = lib.types.bool;
               default = false;
             };
-            config = lib.option.mkOption {
+            config = lib.options.mkOption {
               default = { };
             };
           };

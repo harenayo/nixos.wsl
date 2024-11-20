@@ -29,7 +29,7 @@
           )
         ];
       };
-      packages =
+      apps =
         let
           config = self.nixosConfigurations.default.config;
         in

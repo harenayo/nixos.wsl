@@ -1,4 +1,3 @@
 # nixos.wsl
 
-A `.wsl` file of [NixOS](https://nixos.org) based on [NixOS-WSL](https://github.com/nix-community/NixOS-WSL).
-
+A [`.wsl`](https://learn.microsoft.com/en-us/windows/wsl/build-custom-distro) file of [NixOS](https://nixos.org) based on [NixOS-WSL](https://github.com/nix-community/NixOS-WSL).

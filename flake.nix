@@ -49,6 +49,7 @@
                       oobe.defaultName = "NixOS";
                       shortcut.icon = nixpkgs.legacyPackages.${config.nixpkgs.hostPlatform.system}.fetchurl {
                         url = "https://raw.githubusercontent.com/nix-community/NixOS-WSL/refs/tags/2405.5.4/Launcher/Launcher/nixos.ico";
+                        hash = "sha256-heA2OU04L0roefvt0zg6lCrv1ZKfQxyuLs5LWDs/Oyk=";
                       };
                     };
                   };

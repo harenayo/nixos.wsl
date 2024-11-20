@@ -7,7 +7,11 @@
     };
   };
   outputs =
-    { nixpkgs, nixos-wsl, ... }:
+    {
+      self,
+      nixpkgs,
+      nixos-wsl,
+    }:
     {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         modules = [
@@ -25,5 +29,12 @@
           )
         ];
       };
+      packages =
+        let
+          config = self.nixosConfigurations.default.config;
+        in
+        {
+          ${config.nixpkgs.hostPlatform}.build = config.system.build.tarballBuilder;
+        };
     };
 }

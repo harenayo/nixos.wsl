@@ -28,6 +28,7 @@
           config.environment.etc."wsl-distribution.conf" = lib.modules.mkIf config.wsl.distro.enable {
             enable = true;
             text = lib.generators.toINI { } config.wsl.distro.config;
+            mode = "0644";
           };
         };
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {

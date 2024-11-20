@@ -32,6 +32,13 @@
           )
         ];
       };
-      apps.${system}.build = self.nixosConfigurations.default.config.system.build.tarballBuilder;
+      apps.${system}.build = {
+        type = "app";
+        program =
+          let
+            drv = self.nixosConfigurations.default.config.system.build.tarballBuilder;
+          in
+          "${drv}/bin/${drv.meta.mainProgram}";
+      };
     };
 }

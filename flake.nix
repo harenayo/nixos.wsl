@@ -12,6 +12,9 @@
       nixpkgs,
       nixos-wsl,
     }:
+    let
+      system = "x86_64-linux";
+    in
     {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         modules = [
@@ -21,7 +24,7 @@
             {
               config = {
                 wsl.enable = true;
-                nixpkgs.hostPlatform = "x86_64-linux";
+                nixpkgs.hostPlatform = system;
                 system.stateVersion = config.system.nixos.release;
                 programs.bash.loginShellInit = "nixos-wsl-welcome";
               };
@@ -29,12 +32,6 @@
           )
         ];
       };
-      apps =
-        let
-          config = self.nixosConfigurations.default.config;
-        in
-        {
-          ${config.nixpkgs.hostPlatform}.build = config.system.build.tarballBuilder;
-        };
+      apps.${system}.build = self.nixosConfigurations.default.config.system.build.tarballBuilder;
     };
 }

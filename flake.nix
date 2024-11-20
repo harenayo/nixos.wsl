@@ -13,17 +13,46 @@
       nixos-wsl,
     }:
     {
+      nixosModules.default =
+        { lib, config, ... }:
+        {
+          options.wsl.distro = {
+            enable = lib.options.mkOption {
+              type = lib.types.bool;
+              default = false;
+            };
+            config = lib.option.mkOption {
+              default = { };
+            };
+          };
+          config.environment.etc."wsl-distribution.conf" = lib.modules.mkIf config.wsl.distro.enable {
+            enable = true;
+            text = lib.generators.toINI { } config.wsl.distro.config;
+          };
+        };
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         # https://github.com/nix-community/NixOS-WSL/blob/a6b9cf0b7805e2c50829020a73e7bde683fd36dd/flake.nix#L29-L74
         modules = [
           nixos-wsl.nixosModules.wsl
+          self.nixosModules.default
           (
             { config, ... }:
             {
               config = {
-                wsl.enable = true;
                 nixpkgs.hostPlatform = "x86_64-linux";
                 system.stateVersion = config.system.nixos.release;
+                wsl = {
+                  enable = true;
+                  distro = {
+                    enable = true;
+                    config = {
+                      oobe.defaultName = "NixOS";
+                      shortcut.icon = nixpkgs.legacyPackages.${config.nixpkgs.hostPlatform.system}.fetchurl {
+                        url = "https://raw.githubusercontent.com/nix-community/NixOS-WSL/refs/tags/2405.5.4/Launcher/Launcher/nixos.ico";
+                      };
+                    };
+                  };
+                };
                 programs.bash.loginShellInit = "nixos-wsl-welcome";
               };
             }

@@ -17,6 +17,7 @@
             {
               config = {
                 wsl.enable = true;
+                nixpkgs.hostPlatform = "x86_64-linux";
                 system.stateVersion = config.system.nixos.release;
                 programs.bash.loginShellInit = "nixos-wsl-welcome";
               };

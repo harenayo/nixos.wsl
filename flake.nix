@@ -9,7 +9,7 @@
   outputs =
     { nixpkgs, nixos-wsl, ... }:
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         modules = [
           nixos-wsl.nixosModules.wsl
           (
